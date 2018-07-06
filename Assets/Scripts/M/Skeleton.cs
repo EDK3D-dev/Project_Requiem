@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour {
+public class Skeleton : Enemy {
+
+    [SerializeField]
+    float speed = 1f;
+
+    [SerializeField]
+    private GameObject target;
 
 	// Use this for initialization
 	void Start () {
@@ -11,6 +17,11 @@ public class Skeleton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(target != null)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+        }
 	}
+
+    public void setTarget(GameObject _target) { target = _target; }
 }

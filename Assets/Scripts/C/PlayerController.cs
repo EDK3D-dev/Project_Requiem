@@ -29,19 +29,17 @@ public class PlayerController : MonoBehaviour {
             if(Input.GetMouseButton(0))
             {
                 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                
-                RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity, enemyLayer);
-                if(hit && motor.isInRange(hit.transform.gameObject))
-                {
-                    motor.Attack(hit.transform.gameObject);
-                }
             }
         }
 
 
+        RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity, enemyLayer);
+        if (hit && motor.isInRange(hit.transform.gameObject))
+        {
+            motor.Attack(hit.transform.gameObject);
+        }
 
-        if(pos != motor.getPosition())
+        if (pos != motor.getPosition())
             motor.MoveTo(pos);
 	}
 }
