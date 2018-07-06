@@ -10,8 +10,13 @@ public class Enemy : MonoBehaviour {
     Rigidbody2D rb;
     BoxCollider2D col;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    public int scoreValue = 50;
+    [SerializeField]
+    public float rageValue = 2.5f;
+
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
 	}
@@ -25,6 +30,6 @@ public class Enemy : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D _collider)
     {
-        Debug.Log("collision : " + _collider.gameObject.name);
+        //Debug.Log("collision : " + _collider.gameObject.name);
     }
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Hero : MonoBehaviour {
 
-    int rageLevel;
+    float rage = 0;
+    int score = 0;
     [SerializeField]
     int maxHealth = 2;
     int health;
 
 	// Use this for initialization
 	void Start () {
-        rageLevel = 0;
         health = maxHealth;
     }
 	
@@ -36,5 +36,24 @@ public class Hero : MonoBehaviour {
             health = 0;
         }
         Debug.Log("health : " + health);
+    }
+
+    public float getRage() { return rage; }
+    public int getScore() { return score; }
+    public int getHealth() { return health; }
+
+    public void addRage(float _value) {
+        if(rage + _value >= 100)
+        {
+            rage = 100; //maximum rage
+        } else
+        {
+            rage += _value;
+        }
+    }
+
+    public void addScore(int _value)
+    {
+        score += _value;
     }
 }

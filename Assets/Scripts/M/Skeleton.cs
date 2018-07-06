@@ -23,5 +23,10 @@ public class Skeleton : Enemy {
         }
 	}
 
+    private void OnDestroy()
+    {
+        
+    }
+
     public void setTarget(GameObject _target) { target = _target; }
 }

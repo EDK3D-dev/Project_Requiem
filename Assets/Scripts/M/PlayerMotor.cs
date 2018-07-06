@@ -56,6 +56,8 @@ public class PlayerMotor : MonoBehaviour {
         Debug.Log("hero collision : " + _collider.gameObject.name);
         if (_collider.gameObject.Equals(target))
         {
+            hero.addRage(target.gameObject.GetComponent<Enemy>().rageValue);
+            hero.addScore(target.gameObject.GetComponent<Enemy>().scoreValue);
             Destroy(target);
         }
     }
