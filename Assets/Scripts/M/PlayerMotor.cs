@@ -53,7 +53,7 @@ public class PlayerMotor : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D _collider)
     {
-        Debug.Log("collision : " + _collider.gameObject.name);
+        Debug.Log("hero collision : " + _collider.gameObject.name);
         if (_collider.gameObject.Equals(target))
         {
             Destroy(target);
