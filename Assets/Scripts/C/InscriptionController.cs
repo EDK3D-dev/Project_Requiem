@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(GameManager))]
+[RequireComponent(typeof(InscriptionView))]
 public class InscriptionController : MonoBehaviour {
 
     InscriptionView iv;
@@ -15,6 +17,7 @@ public class InscriptionController : MonoBehaviour {
     [SerializeField]
     List<GameObject> inscriptions = new List<GameObject>();
     bool[] currentMatrix = new bool[16];
+    GameObject castedInscription;
 
     List<GameObject> buttons = new List<GameObject>();
 
@@ -23,6 +26,7 @@ public class InscriptionController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentTimer = inscriptionTimer;
+        gm = GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -31,14 +35,9 @@ public class InscriptionController : MonoBehaviour {
         {
             //TIMER
             if(currentTimer > 0)
-            {
                 currentTimer -= Time.deltaTime;
-            } else
-            {
-                active = false;
-                currentTimer = inscriptionTimer;
-                iv.SwitchView();
-            }
+            else
+                SwitchOffController();
 
             //BUTTONS
             if(Input.GetMouseButton(0))
@@ -63,27 +62,46 @@ public class InscriptionController : MonoBehaviour {
                 for(int i = 0; i < buttons.Count; i++)
                 {
                     GameObject go = buttons[i];
-                    currentMatrix[i] = go.GetComponent<InscriptionButton>().hasBeenActivated();
-
+                    currentMatrix[i] = go.GetComponent<InscriptionButton>().HasBeenActivated();
+                    
                     go.GetComponent<InscriptionButton>().ResetState();
                     go.GetComponent<Image>().color = Color.white;
 
+                }
+
+                //INSCRIPTIONS
+                GameObject ins = CheckInscription(currentMatrix);
+                if (ins != null)
+                {
+                    Debug.Log("IC : cast");
+                    currentMatrix = new bool[16];
+                    //cast the inscription
+                    castedInscription = Instantiate(ins);
+                    castedInscription.GetComponent<Inscription>().SetPlayer(gm.GetHero());
+
+                    SwitchOffController();
+                    gm.AwakeInscription();
                 }
             }
             
         }
 	}
 
-    private Inscription CheckInscription(bool[] _input)
+    private GameObject CheckInscription(bool[] _input)
     {
-        foreach(GameObject go in inscriptions)
+        if (_input != null)
         {
-            Inscription ins = go.GetComponent<Inscription>();
-            if(ins.GetMatrix().Equals(_input))
+            foreach (GameObject go in inscriptions)
             {
-                return ins;
+                Inscription ins = go.GetComponent<Inscription>();
+                if (ins.CompareMatrix(_input))
+                {
+                    Debug.Log(ins.name);
+                    return go;
+                }
             }
         }
+
         return null;
     }
 
@@ -96,4 +114,12 @@ public class InscriptionController : MonoBehaviour {
 
     public void SetInscriptionView(InscriptionView _iv) { iv = _iv; }
     public float GetTimer() { return Mathf.Clamp(currentTimer, 0, inscriptionTimer); }
+    public GameObject GetCastedInscription() { return castedInscription; }
+
+    private void SwitchOffController()
+    {
+        active = false;
+        currentTimer = inscriptionTimer;
+        iv.SwitchView();
+    }
 }

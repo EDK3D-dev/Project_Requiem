@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(InscriptionView))]
+[RequireComponent(typeof(InscriptionController))]
 public class GameManager : MonoBehaviour {
 
     //PLAYER
@@ -11,7 +12,8 @@ public class GameManager : MonoBehaviour {
     GameObject GOhero;
     Hero hero;
     private float oldRage = 0;
-    private int oldScore = 0;
+    private float oldScore = 0;
+    private float oldHealth = 0;
 
 
     //SPAWNER
@@ -32,7 +34,13 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     GameObject UIhealth;
 
+    //INSCRIPTIONS
     InscriptionView Iview;
+    InscriptionController Icontroller;
+    bool awakenFromInscription = false;
+    float inscriptionTimer = 0f;
+    float inscriptionDuration = 0f;
+    float decrementalUnit = 0f;
 
     //UTILITIES
     [SerializeField]
@@ -48,6 +56,7 @@ public class GameManager : MonoBehaviour {
         //init
         hero = GOhero.gameObject.GetComponent<Hero>();
         Iview = GetComponent<InscriptionView>();
+        Icontroller = GetComponent<InscriptionController>();
 
         //spawner
         spawner = cam.GetComponent<Spawner>();
@@ -68,25 +77,45 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (hero.GetRage() != oldRage)
+
+        if(hero.GetHealth() <= 0)
         {
-            Debug.Log("rage : " + hero.GetRage());
-            UpdateRage();
-        }
-        if(hero.GetScore() != oldScore)
-        {
-            Debug.Log("score : " + hero.GetScore());
-            UpdateScore();
+            PauseGame();
         }
 
+        if (hero.GetHealth() != oldHealth)
+            UpdateHealth();
+
+        if (hero.GetRage() != oldRage)
+            UpdateRage();
+
+        if(hero.GetScore() != oldScore)
+            UpdateScore();
+        
+        oldHealth = hero.GetHealth();
         oldRage = hero.GetRage();
         oldScore = hero.GetScore();
 
-        if(hero.GetRage() == 20 && !Iview.IsEnabled()) //!!!!!!!!CHANGE
+        if(awakenFromInscription)
         {
+            if (inscriptionDuration <= 0)
+            {
+                inscriptionDuration = 0;
+                awakenFromInscription = false;
+            }
+            else
+            {
+                inscriptionDuration -= Time.deltaTime;
+                hero.AddRage(-decrementalUnit);
+            }
+        }
+
+
+        if(hero.GetRage() == 20 && !Iview.IsEnabled() && !awakenFromInscription) //!!!!!!!!CHANGE
+        {
+            Debug.Log("GM : Switch View");
             Iview.SwitchView();
             SwitchUnits(!Iview.isActiveAndEnabled);
-            hero.AddRage(-1f);
         }
         
 	}
@@ -126,6 +155,15 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 1;
     }
 
+    public void AwakeInscription()
+    {
+        inscriptionTimer = Icontroller.GetCastedInscription().GetComponent<Inscription>().GetDuration();
+        inscriptionDuration = inscriptionTimer;
+        decrementalUnit = (hero.GetMaximumRage() * Time.deltaTime * 10) / inscriptionTimer;
+        awakenFromInscription = true;
+    }
+
     public void SetHero(GameObject _hero) { GOhero = _hero; }
     public GameObject GetHero() { return GOhero; }
+
 }

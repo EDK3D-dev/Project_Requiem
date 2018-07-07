@@ -119,6 +119,7 @@ public class Spawner : MonoBehaviour {
     public void SwitchSpawning(bool _state)
     {
         active = _state;
+        skeletonSpawning = false;
         if(!active) StopAllCoroutines();
     }
 

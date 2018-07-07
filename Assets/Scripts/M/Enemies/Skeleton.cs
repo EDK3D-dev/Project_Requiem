@@ -3,20 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Skeleton : Enemy {
-
-    [SerializeField]
-    float speed = 1f;
-
+    
     [SerializeField]
     private GameObject target;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
 	// Update is called once per frame
-    protected override void Move()
+    protected override void Behaviour()
     {
         if (target != null)
         {
@@ -24,9 +16,12 @@ public class Skeleton : Enemy {
         }
     }
 
-    private void OnDestroy()
+    protected override void Initialisation()
     {
-        
+    }
+
+    protected override void OnDestroyBehaviour()
+    {
     }
 
     public void SetTarget(GameObject _target) { target = _target; }

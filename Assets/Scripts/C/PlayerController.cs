@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity, enemyLayer);
         if (hit && motor.IsInRange(hit.transform.gameObject))
         {
-            motor.Attack(hit.transform.gameObject);
+            motor.Dash(hit.transform.gameObject);
         }
 
         if (pos != motor.GetPosition())

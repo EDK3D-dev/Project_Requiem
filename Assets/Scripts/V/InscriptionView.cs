@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(InscriptionController))]
+[RequireComponent(typeof(GameManager))]
 public class InscriptionView : MonoBehaviour {
 
     InscriptionController ic;
+    GameManager gm;
 
     [SerializeField]
     GameObject VInscription;
@@ -21,6 +23,7 @@ public class InscriptionView : MonoBehaviour {
 
     void Start()
     {
+        gm = GetComponent<GameManager>();
         ic = GetComponent<InscriptionController>();
         ic.SetButtons(VIButtons);
         ic.SetInscriptionView(this);
@@ -37,11 +40,15 @@ public class InscriptionView : MonoBehaviour {
 
     public void SwitchView()
     {
+        Debug.Log("IV : SwitchView");
         VInscription.SetActive(!VInscription.activeSelf);
         if(VInscription.activeSelf)
         {
             ic.Activate();
             VIlabel.GetComponent<Text>().text = ic.GetTimer().ToString();
+        } else
+        {
+            gm.SwitchUnits(true);
         }
     }
 

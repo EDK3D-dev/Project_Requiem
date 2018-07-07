@@ -52,10 +52,10 @@ public class InscriptionButton : MonoBehaviour, IPointerDownHandler, IPointerCli
         isDragged = false;
         isEndingPoint = false;
         isUsable = false;
-        Debug.Log("reset " + transform.name);
+        //Debug.Log("reset " + transform.name);
     }
 
-    public bool hasBeenActivated() { return isStartingPoint || isDragged || isEndingPoint; }
+    public bool HasBeenActivated() { return isStartingPoint || isDragged || isEndingPoint; }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -83,7 +83,7 @@ public class InscriptionButton : MonoBehaviour, IPointerDownHandler, IPointerCli
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("Mouse Up");
+        //Debug.Log("Mouse Up");
         EndingPoint();
     }
 }

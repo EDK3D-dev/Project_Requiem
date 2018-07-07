@@ -42,26 +42,27 @@ public class PlayerMotor : MonoBehaviour {
         return Vector2.Distance(transform.position, _target.transform.position) <= rangeRadius;
     }
 
-    public void Attack(GameObject _target)
+    public void Dash(GameObject _target)
     {
         if(active)
         {
             target = _target;
             transform.position = Vector2.MoveTowards(transform.position, _target.transform.position, chargeSpeed * Time.deltaTime);
-
         }
     }
 
     public Vector2 GetPosition() { return transform.position; }
+    public float GetSpeed() { return speed; }
+    public void SetSpeed(float _speed) { speed = _speed; }
 
     public void OnTriggerEnter2D(Collider2D _collider)
     {
         Debug.Log("hero collision : " + _collider.gameObject.name);
         if (_collider.gameObject.Equals(target))
         {
-            hero.AddRage(target.gameObject.GetComponent<Enemy>().rageValue);
-            hero.AddScore(target.gameObject.GetComponent<Enemy>().scoreValue);
-            Destroy(target);
+            hero.Attack(target);
+        } else if (_collider.gameObject.GetComponent<Enemy>() != null) {
+            hero.Hit(_collider.gameObject, _collider.gameObject.GetComponent<Enemy>().damage);
         }
     }
 }

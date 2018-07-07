@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
 
-public class Enemy : MonoBehaviour {
+public abstract class Enemy : MonoBehaviour {
 
     Rigidbody2D rb;
     BoxCollider2D col;
@@ -14,6 +14,11 @@ public class Enemy : MonoBehaviour {
     public int scoreValue = 50;
     [SerializeField]
     public float rageValue = 2.5f;
+    [SerializeField]
+    public float damage = 1f;
+
+    [SerializeField]
+    protected float speed = 1f;
 
     public bool active = true;
 
@@ -21,14 +26,22 @@ public class Enemy : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
+        Initialisation();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (active) Move();
+        if (active) Behaviour();
 	}
 
-    protected virtual void Move() { }
+    private void OnDestroy()
+    {
+        OnDestroyBehaviour();
+    }
+
+    protected abstract void Behaviour();
+    protected abstract void Initialisation();
+    protected abstract void OnDestroyBehaviour();
 
 
     public void OnTriggerEnter2D(Collider2D _collider)
