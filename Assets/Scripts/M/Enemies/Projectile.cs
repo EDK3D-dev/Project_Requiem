@@ -24,7 +24,7 @@ public class Projectile : Enemy {
 
     private new void OnTriggerEnter2D(Collider2D _collider)
     {
-        if (_collider.tag == "Border")
+        if (_collider.tag == "Border" || _collider.tag == "Player")
             Destroy(gameObject);
     }
 }
