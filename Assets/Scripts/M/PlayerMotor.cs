@@ -17,6 +17,7 @@ public class PlayerMotor : MonoBehaviour {
     [SerializeField]
     float rangeRadius = 2f;
 
+    public bool active = true;
     private GameObject target;
 
 	// Use this for initialization
@@ -32,32 +33,34 @@ public class PlayerMotor : MonoBehaviour {
 
     public void MoveTo(Vector2 _position)
     {
-        //Debug.Log(_position + " | " + transform.position);
-        transform.position = Vector2.MoveTowards(transform.position, _position, speed * Time.deltaTime);
+        if(active)
+            transform.position = Vector2.MoveTowards(transform.position, _position, speed * Time.deltaTime);
     }
 
-    public bool isInRange(GameObject _target)
+    public bool IsInRange(GameObject _target)
     {
         return Vector2.Distance(transform.position, _target.transform.position) <= rangeRadius;
     }
 
     public void Attack(GameObject _target)
     {
-        target = _target;
-        transform.position = Vector2.MoveTowards(transform.position, _target.transform.position, chargeSpeed * Time.deltaTime);
-        
-        //hero.Attack(_target);
+        if(active)
+        {
+            target = _target;
+            transform.position = Vector2.MoveTowards(transform.position, _target.transform.position, chargeSpeed * Time.deltaTime);
+
+        }
     }
 
-    public Vector2 getPosition() { return transform.position; }
+    public Vector2 GetPosition() { return transform.position; }
 
     public void OnTriggerEnter2D(Collider2D _collider)
     {
         Debug.Log("hero collision : " + _collider.gameObject.name);
         if (_collider.gameObject.Equals(target))
         {
-            hero.addRage(target.gameObject.GetComponent<Enemy>().rageValue);
-            hero.addScore(target.gameObject.GetComponent<Enemy>().scoreValue);
+            hero.AddRage(target.gameObject.GetComponent<Enemy>().rageValue);
+            hero.AddScore(target.gameObject.GetComponent<Enemy>().scoreValue);
             Destroy(target);
         }
     }

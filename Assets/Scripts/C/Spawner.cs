@@ -13,9 +13,11 @@ public class Spawner : MonoBehaviour {
     float skeletonSpawnFrequency = 2f; //redefined in GameManager
     float randomGeneration = 0.5f; //redefined in GameManager
     private bool skeletonSpawning = false;
-    
 
+    [SerializeField]
+    GameObject enemies;
     Camera screen;
+    public bool active = true;
 
     private Vector2 screenSize;
     private Transform topCollider;
@@ -87,7 +89,10 @@ public class Spawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!skeletonSpawning) StartCoroutine(SpawnSkeleton());
+        if (active)
+        {
+            if (!skeletonSpawning) StartCoroutine(SpawnSkeleton());
+        }
 	}
 
     IEnumerator SpawnSkeleton()
@@ -107,10 +112,17 @@ public class Spawner : MonoBehaviour {
         yield return new WaitForSeconds(Random.Range(0, randomGeneration));
         Vector3 pos = new Vector3(Random.Range(_ec.points[0].x, _ec.points[1].x), Random.Range(_ec.points[0].y, _ec.points[1].y), 0);
         GameObject skel = Instantiate(skeletonPrefab, pos, transform.localRotation);
-        skel.GetComponent<Skeleton>().setTarget(hero);
+        skel.transform.parent = enemies.transform;
+        skel.GetComponent<Skeleton>().SetTarget(hero);
     }
 
-    public void setHero(GameObject _hero) { hero = _hero; }
-    public void setRandomGeneration(float _frequency) { randomGeneration = _frequency; }
-    public void setSkeletonSpawnFrequency(float _frequency) { skeletonSpawnFrequency = _frequency; }
+    public void SwitchSpawning(bool _state)
+    {
+        active = _state;
+        if(!active) StopAllCoroutines();
+    }
+
+    public void SetHero(GameObject _hero) { hero = _hero; }
+    public void SetRandomGeneration(float _frequency) { randomGeneration = _frequency; }
+    public void SetSkeletonSpawnFrequency(float _frequency) { skeletonSpawnFrequency = _frequency; }
 }

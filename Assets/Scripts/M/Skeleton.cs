@@ -16,17 +16,18 @@ public class Skeleton : Enemy {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(target != null)
+    protected override void Move()
+    {
+        if (target != null)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
         }
-	}
+    }
 
     private void OnDestroy()
     {
         
     }
 
-    public void setTarget(GameObject _target) { target = _target; }
+    public void SetTarget(GameObject _target) { target = _target; }
 }

@@ -38,11 +38,11 @@ public class Hero : MonoBehaviour {
         Debug.Log("health : " + health);
     }
 
-    public float getRage() { return rage; }
-    public int getScore() { return score; }
-    public int getHealth() { return health; }
+    public float GetRage() { return rage; }
+    public int GetScore() { return score; }
+    public int GetHealth() { return health; }
 
-    public void addRage(float _value) {
+    public void AddRage(float _value) {
         if(rage + _value >= 100)
         {
             rage = 100; //maximum rage
@@ -52,7 +52,7 @@ public class Hero : MonoBehaviour {
         }
     }
 
-    public void addScore(int _value)
+    public void AddScore(int _value)
     {
         score += _value;
     }

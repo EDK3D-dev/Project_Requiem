@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
         if(enemyLayer == -1) { Debug.Log("error"); }
         if(Application.isMobilePlatform)
         {
-            pos = Input.GetTouch(0).position;
+            pos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
         } else
         {
             if(Input.GetMouseButton(0))
@@ -34,12 +34,14 @@ public class PlayerController : MonoBehaviour {
 
 
         RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity, enemyLayer);
-        if (hit && motor.isInRange(hit.transform.gameObject))
+        if (hit && motor.IsInRange(hit.transform.gameObject))
         {
             motor.Attack(hit.transform.gameObject);
         }
 
-        if (pos != motor.getPosition())
+        if (pos != motor.GetPosition())
             motor.MoveTo(pos);
 	}
+
+    public PlayerMotor GetPlayerMotor() { return motor; }
 }

@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inscription : MonoBehaviour {
+public class Inscription : MonoBehaviour
+{
+    [SerializeField]
+    string inscriptionName;
+    [SerializeField]
+    bool[] activationMatrix = new bool[16];
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+    }
+
+    public bool[] GetMatrix() { return activationMatrix; }
 }

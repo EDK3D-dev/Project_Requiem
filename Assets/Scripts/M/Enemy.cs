@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     public float rageValue = 2.5f;
 
+    public bool active = true;
+
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D>();
@@ -23,9 +25,10 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (active) Move();
 	}
 
+    protected virtual void Move() { }
 
 
     public void OnTriggerEnter2D(Collider2D _collider)
