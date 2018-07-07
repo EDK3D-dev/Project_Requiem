@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 50
-  rageValue: 2.5
+  rageValue: 5
   damage: 1
   speed: 1
   active: 1

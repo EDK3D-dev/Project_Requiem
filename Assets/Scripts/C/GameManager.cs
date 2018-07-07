@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     GameObject UIhealth;
 
+    [SerializeField]
+    GameObject pauseCanvas;
+    [SerializeField]
+    GameObject restartButton;
+
     //INSCRIPTIONS
     InscriptionView Iview;
     InscriptionController Icontroller;
@@ -58,6 +63,8 @@ public class GameManager : MonoBehaviour {
         hero = GOhero.gameObject.GetComponent<Hero>();
         Iview = GetComponent<InscriptionView>();
         Icontroller = GetComponent<InscriptionController>();
+        restartButton.GetComponent<Button>().onClick.AddListener(OnClickRestart);
+
 
         //spawner
         spawner = cam.GetComponent<Spawner>();
@@ -67,7 +74,6 @@ public class GameManager : MonoBehaviour {
         spawner.SetArcherSpawnFrequency(archerSpawnFrequency);
 
         //view
-        UIcanvas = UI.GetComponentInChildren<Canvas>().gameObject;
         if(UIcanvas != null)
         {
             UpdateScore();
@@ -75,6 +81,7 @@ public class GameManager : MonoBehaviour {
             UpdateHealth();
         }
 
+        pauseCanvas.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -150,10 +157,12 @@ public class GameManager : MonoBehaviour {
     public void PauseGame()
     {
         Time.timeScale = 0;
+        pauseCanvas.SetActive(true);
     }
 
     public void ContinueGame()
     {
+        pauseCanvas.SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -163,6 +172,22 @@ public class GameManager : MonoBehaviour {
         inscriptionDuration = inscriptionTimer;
         decrementalUnit = (hero.GetMaximumRage() * Time.deltaTime * 10) / inscriptionTimer;
         awakenFromInscription = true;
+    }
+
+    private void OnClickRestart()
+    {
+        //clear board
+        foreach(Transform t in enemies.transform)
+        {
+            Destroy(t.gameObject);
+        }
+
+        //reset player
+        GOhero.transform.position = new Vector3(0, 0, 0);
+        hero.ResetHero();
+
+        //
+        ContinueGame();
     }
 
     public void SetHero(GameObject _hero) { GOhero = _hero; }

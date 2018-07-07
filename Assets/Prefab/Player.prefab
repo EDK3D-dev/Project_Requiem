@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   chargeSpeed: 5
-  rangeRadius: 3
+  rangeRadius: 2
   active: 1
 --- !u!114 &114891382513418684
 MonoBehaviour:

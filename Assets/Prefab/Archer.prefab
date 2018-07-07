@@ -100,12 +100,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 100
-  rageValue: 5
+  rageValue: 10
   damage: 0
   speed: 1
   active: 1
   target: {fileID: 0}
-  timeToPosition: 1.5
+  timeToPosition: 1
   arrow: {fileID: 1359448590778788, guid: a99289a87db7edc47abfc55e5daae821, type: 2}
   timeToReload: 5
 --- !u!212 &212580694958920458

@@ -22,9 +22,7 @@ public class Hero : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        health = maxHealth;
-        rage = 0;
-        score = 0;
+        ResetHero();
     }
 	
 	// Update is called once per frame
@@ -103,4 +101,12 @@ public class Hero : MonoBehaviour {
     public float GetMaximumRage() { return maximumRage; }
     public float GetScoreModifier() { return scoreModifier; }
     public void SetScoreModifier(float _value) { scoreModifier = _value; }
+    public void ResetHero()
+    {
+        health = maxHealth;
+        rage = 0;
+        score = 0;
+        scoreModifier = 1f;
+        canBeHit = true;
+    }
 }

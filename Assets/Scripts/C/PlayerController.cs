@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 
         if (pos != motor.GetPosition())
             motor.MoveTo(pos);
+        
 	}
 
     public PlayerMotor GetPlayerMotor() { return motor; }
