@@ -7,12 +7,18 @@ public class Spawner : MonoBehaviour {
 
     GameObject hero;
 
+    float randomGeneration = 1f; //redefined in GameManager
     //skeletons properties
     [SerializeField]
     GameObject skeletonPrefab;
     float skeletonSpawnFrequency = 2f; //redefined in GameManager
-    float randomGeneration = 0.5f; //redefined in GameManager
     private bool skeletonSpawning = false;
+
+    //archers properties
+    [SerializeField]
+    GameObject archerPrefab;
+    float archerSpawnFrequency = 4f; //redefined in GameManager
+    private bool archerSpawning = false;
 
     [SerializeField]
     GameObject enemies;
@@ -41,6 +47,12 @@ public class Spawner : MonoBehaviour {
         bottomCollider.name = "BottomCollider";
         rightCollider.name = "RightCollider";
         leftCollider.name = "LeftCollider";
+
+        //tags
+        topCollider.tag = "Border";
+        bottomCollider.tag = "Border";
+        rightCollider.tag = "Border";
+        leftCollider.tag = "Border";
 
         //add edge colliders
         topCollider.gameObject.AddComponent<EdgeCollider2D>();
@@ -92,6 +104,7 @@ public class Spawner : MonoBehaviour {
         if (active)
         {
             if (!skeletonSpawning) StartCoroutine(SpawnSkeleton());
+            if (!archerSpawning) StartCoroutine(SpawnArcher());
         }
 	}
 
@@ -116,14 +129,37 @@ public class Spawner : MonoBehaviour {
         skel.GetComponent<Skeleton>().SetTarget(hero);
     }
 
+    IEnumerator SpawnArcher()
+    {
+        archerSpawning = true;
+        yield return new WaitForSeconds(archerSpawnFrequency);
+        foreach (Transform c in colliders)
+        {
+            EdgeCollider2D ec = c.gameObject.GetComponent<EdgeCollider2D>();
+            StartCoroutine(SpawnArcherBorders(ec));
+        }
+        archerSpawning = false;
+    }
+
+    IEnumerator SpawnArcherBorders(EdgeCollider2D _ec)
+    {
+        yield return new WaitForSeconds(Random.Range(0, randomGeneration));
+        Vector3 pos = new Vector3(Random.Range(_ec.points[0].x, _ec.points[1].x), Random.Range(_ec.points[0].y, _ec.points[1].y), 0);
+        GameObject archer = Instantiate(archerPrefab, pos, transform.localRotation);
+        archer.transform.parent = enemies.transform;
+        archer.GetComponent<Archer>().SetTarget(hero);
+    }
+
     public void SwitchSpawning(bool _state)
     {
         active = _state;
         skeletonSpawning = false;
+        archerSpawning = false;
         if(!active) StopAllCoroutines();
     }
 
     public void SetHero(GameObject _hero) { hero = _hero; }
     public void SetRandomGeneration(float _frequency) { randomGeneration = _frequency; }
     public void SetSkeletonSpawnFrequency(float _frequency) { skeletonSpawnFrequency = _frequency; }
+    public void SetArcherSpawnFrequency(float _frequency) { archerSpawnFrequency = _frequency; }
 }

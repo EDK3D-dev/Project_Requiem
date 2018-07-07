@@ -15,10 +15,12 @@ public class Archer : Enemy {
     GameObject arrow;
     [SerializeField]
     float timeToReload = 2f;
+    float reloadDuration = 0f;
 
     protected override void Initialisation()
     {
         timeToPositionDuration = timeToPosition;
+        reloadDuration = timeToPosition;
     }
 
     protected override void Behaviour()
@@ -38,7 +40,20 @@ public class Archer : Enemy {
                 }
             } else
             {
-                //start shooting 
+                //start shooting
+                if(reloadDuration <= 0)
+                {
+                    reloadDuration = timeToReload;
+                    //shoot
+                    Debug.Log("Archer : shoot");
+                    Vector3 direction = (target.transform.position - transform.position).normalized;
+                    GameObject newArrow = Instantiate(arrow, transform.position, Quaternion.identity, transform.parent);
+                    newArrow.GetComponent<Projectile>().SetDirection(direction);
+                    newArrow.transform.Rotate(direction);
+                } else
+                {
+                    reloadDuration -= Time.deltaTime;
+                }
             }
         }
     }

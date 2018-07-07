@@ -99,6 +99,7 @@ public class Hero : MonoBehaviour {
         score += (_value * scoreModifier);
     }
 
+    public void ResetRage() { rage = 0; }
     public float GetMaximumRage() { return maximumRage; }
     public float GetScoreModifier() { return scoreModifier; }
     public void SetScoreModifier(float _value) { scoreModifier = _value; }

@@ -34,10 +34,13 @@ public class InscriptionController : MonoBehaviour {
 		if(active)
         {
             //TIMER
-            if(currentTimer > 0)
+            if (currentTimer > 0)
                 currentTimer -= Time.deltaTime;
             else
+            {
+                gm.GetHero().GetComponent<Hero>().ResetRage();
                 SwitchOffController();
+            }
 
             //BUTTONS
             if(Input.GetMouseButton(0))
@@ -58,7 +61,7 @@ public class InscriptionController : MonoBehaviour {
                 }
             } else if (Input.GetMouseButtonUp(0))
             {
-                Debug.Log("Release");
+                //Debug.Log("Release");
                 for(int i = 0; i < buttons.Count; i++)
                 {
                     GameObject go = buttons[i];

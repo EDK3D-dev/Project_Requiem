@@ -2,15 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : Enemy {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    Vector3 direction;
+
+    protected override void Behaviour()
+    {
+        transform.position += (direction * (Time.deltaTime * speed));
+    }
+
+    protected override void Initialisation()
+    {
+
+    }
+
+    protected override void OnDestroyBehaviour()
+    {
+    }
+
+    public void SetDirection(Vector3 _direction) { direction = _direction; }
+
+    private new void OnTriggerEnter2D(Collider2D _collider)
+    {
+        if (_collider.tag == "Border")
+            Destroy(gameObject);
+    }
 }

@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour {
 
     //SPAWNER
     [SerializeField]
-    float randomGeneration = 0.5f;
+    float randomGeneration = 1f;
     float skeletonSpawnFrequency = 2f;
+    float archerSpawnFrequency = 5f;
     Spawner spawner;
 
     //VIEW
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour {
         spawner.SetHero(GOhero);
         spawner.SetRandomGeneration(randomGeneration);
         spawner.SetSkeletonSpawnFrequency(skeletonSpawnFrequency);
+        spawner.SetArcherSpawnFrequency(archerSpawnFrequency);
 
         //view
         UIcanvas = UI.GetComponentInChildren<Canvas>().gameObject;
@@ -111,7 +113,7 @@ public class GameManager : MonoBehaviour {
         }
 
 
-        if(hero.GetRage() == 20 && !Iview.IsEnabled() && !awakenFromInscription) //!!!!!!!!CHANGE
+        if(hero.GetRage() == 100 && !Iview.IsEnabled() && !awakenFromInscription)
         {
             Debug.Log("GM : Switch View");
             Iview.SwitchView();
