@@ -3385,6 +3385,41 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114762378426884672, guid: cb9d38d53d19cb34eadc2917f5d31cd4,
+        type: 2}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762378426884672, guid: cb9d38d53d19cb34eadc2917f5d31cd4,
+        type: 2}
+      propertyPath: rangeRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762378426884672, guid: cb9d38d53d19cb34eadc2917f5d31cd4,
+        type: 2}
+      propertyPath: chargeSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 61834082909450904, guid: cb9d38d53d19cb34eadc2917f5d31cd4,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0.016233113
+      objectReference: {fileID: 0}
+    - target: {fileID: 61834082909450904, guid: cb9d38d53d19cb34eadc2917f5d31cd4,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.22859973
+      objectReference: {fileID: 0}
+    - target: {fileID: 61834082909450904, guid: cb9d38d53d19cb34eadc2917f5d31cd4,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.007108137
+      objectReference: {fileID: 0}
+    - target: {fileID: 61834082909450904, guid: cb9d38d53d19cb34eadc2917f5d31cd4,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.21642408
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb9d38d53d19cb34eadc2917f5d31cd4, type: 2}
   m_IsPrefabParent: 0

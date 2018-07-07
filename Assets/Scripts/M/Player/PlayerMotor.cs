@@ -57,10 +57,11 @@ public class PlayerMotor : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D _collider)
     {
-        Debug.Log("hero collision : " + _collider.gameObject.name);
+        //Debug.Log("hero collision : " + _collider.gameObject.name);
         if (_collider.gameObject.Equals(target))
         {
             hero.Attack(target);
+            hero.ClearArea(hero.clearRadius);
         } else if (_collider.gameObject.GetComponent<Enemy>() != null) {
             hero.Hit(_collider.gameObject, _collider.gameObject.GetComponent<Enemy>().damage);
         }

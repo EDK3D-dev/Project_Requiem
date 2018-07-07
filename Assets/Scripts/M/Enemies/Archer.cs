@@ -45,7 +45,6 @@ public class Archer : Enemy {
                 {
                     reloadDuration = timeToReload;
                     //shoot
-                    Debug.Log("Archer : shoot");
                     Vector3 direction = (target.transform.position - transform.position).normalized;
                     GameObject newArrow = Instantiate(arrow, transform.position, Quaternion.identity, transform.parent);
                     newArrow.GetComponent<Projectile>().SetDirection(direction);

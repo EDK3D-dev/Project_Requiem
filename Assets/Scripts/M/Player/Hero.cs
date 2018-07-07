@@ -20,6 +20,9 @@ public class Hero : MonoBehaviour {
     float invulnerabilityDuration = 0;
     float invulnerabilityTimer = 0;
 
+    [SerializeField]
+    public float clearRadius = 0.5f;
+
 	// Use this for initialization
 	void Start () {
         ResetHero();
@@ -41,12 +44,16 @@ public class Hero : MonoBehaviour {
 
     public void Attack(GameObject _target)
     {
-        Enemy enemy = _target.GetComponent<Enemy>();
-        if(enemy == null) { throw new MissingReferenceException(); }
-
-        AddRage(enemy.rageValue);
-        AddScore(enemy.scoreValue);
-        Destroy(_target);
+        if(_target != null)
+        {
+            Enemy enemy = _target.GetComponent<Enemy>();
+            if(enemy != null)
+            {
+                AddRage(enemy.rageValue);
+                AddScore(enemy.scoreValue);
+                Destroy(_target);
+            }
+        }
     }
 
     public void Hit(GameObject _enemy, float damage)
@@ -69,6 +76,7 @@ public class Hero : MonoBehaviour {
     public float GetRage() { return rage; }
     public float GetScore() { return score; }
     public float GetHealth() { return health; }
+    public void AddHealth(float _value) { health += _value; }
 
     public void CanBeHit(bool _state) { canBeHit = _state; }
     public void SetInvulnerability(float _timer)
@@ -95,6 +103,15 @@ public class Hero : MonoBehaviour {
     public void AddScore(float _value)
     {
         score += (_value * scoreModifier);
+    }
+
+    public void ClearArea(float _radius)
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, _radius);
+        foreach (Collider2D collider in hitColliders)
+        {
+            Attack(collider.gameObject);
+        }
     }
 
     public void ResetRage() { rage = 0; }

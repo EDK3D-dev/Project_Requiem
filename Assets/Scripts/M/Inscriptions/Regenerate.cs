@@ -2,43 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedUp : Inscription {
-
-    PlayerMotor motor;
+public class Regenerate : Inscription
+{
     Hero hero;
     SpriteRenderer sr;
 
     [SerializeField]
-    float speedModifier = 1.5f;
-    float initialSpeed = 0f;
+    float heal = 1f;
 
     [SerializeField]
-    float scoreModifier = 2f;
+    float scoreModifier = 0.5f;
     float initialScoreModifier = 0f;
 
     protected override void Behaviour()
     {
+        
     }
 
     protected override void Initialisation()
     {
-        motor = player.GetComponent<PlayerMotor>();
         hero = player.GetComponent<Hero>();
         sr = player.GetComponent<SpriteRenderer>();
 
-        initialSpeed = motor.GetSpeed();
-        motor.SetSpeed(initialSpeed * speedModifier);
-
+        hero.AddHealth(heal);
         initialScoreModifier = hero.GetScoreModifier();
         hero.SetScoreModifier(scoreModifier);
 
-        sr.color = Color.yellow;
+        Color p = Color.magenta;
+        p.a = 0.8f;
+        sr.color = p;
     }
 
     protected override void OnDestroyBehaviour()
     {
-        motor.SetSpeed(initialSpeed);
         hero.SetScoreModifier(initialScoreModifier);
-        sr.color = Color.white;
+
+        Color w = Color.white;
+        w.a = 1f;
+        sr.color = w;
     }
 }
