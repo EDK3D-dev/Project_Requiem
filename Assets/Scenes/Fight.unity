@@ -448,6 +448,8 @@ MonoBehaviour:
   inscriptions:
   - {fileID: 1207792883024484, guid: 0ba733acf5cc51a42807d8329593e634, type: 2}
   - {fileID: 1448517111082334, guid: 50c67726c33c91b47ac7e2dde83179fa, type: 2}
+  - {fileID: 1267689659538606, guid: ec14f6fb0c75b504c8f2432e6aef9cf4, type: 2}
+  - {fileID: 1357307121984272, guid: eab5c86521ca0f346a32f4589b0b53ab, type: 2}
 --- !u!1 &466813866
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,6 +3421,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.x
       value: 0.21642408
+      objectReference: {fileID: 0}
+    - target: {fileID: 114891382513418684, guid: cb9d38d53d19cb34eadc2917f5d31cd4,
+        type: 2}
+      propertyPath: clearRadius
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb9d38d53d19cb34eadc2917f5d31cd4, type: 2}
