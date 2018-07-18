@@ -16,6 +16,8 @@ public class PlayerMotor : MonoBehaviour {
     float chargeSpeed = 5f;
     [SerializeField]
     float rangeRadius = 2f;
+    [SerializeField]
+    float chargeInvulnerability = 0.25f;
 
     public bool active = true;
     private GameObject target;
@@ -62,8 +64,14 @@ public class PlayerMotor : MonoBehaviour {
         {
             hero.Attack(target);
             hero.ClearArea(hero.clearRadius);
+            hero.SetInvulnerability(0.25f);
         } else if (_collider.gameObject.GetComponent<Enemy>() != null) {
             hero.Hit(_collider.gameObject, _collider.gameObject.GetComponent<Enemy>().damage);
         }
+    }
+
+    public void OnTriggerStay2D(Collider2D _collider)
+    {
+        //enemies inside Hero
     }
 }

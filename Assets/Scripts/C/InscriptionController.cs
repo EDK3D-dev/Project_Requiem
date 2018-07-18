@@ -16,7 +16,7 @@ public class InscriptionController : MonoBehaviour {
 
     [SerializeField]
     List<GameObject> inscriptions = new List<GameObject>();
-    bool[] currentMatrix = new bool[16];
+    bool[] currentMatrix = new bool[25];
     GameObject castedInscription;
 
     List<GameObject> buttons = new List<GameObject>();
@@ -77,7 +77,7 @@ public class InscriptionController : MonoBehaviour {
                 if (ins != null)
                 {
                     Debug.Log("IC : cast");
-                    currentMatrix = new bool[16];
+                    currentMatrix = new bool[25];
                     //cast the inscription
                     castedInscription = Instantiate(ins);
                     castedInscription.GetComponent<Inscription>().SetPlayer(gm.GetHero());
@@ -118,6 +118,7 @@ public class InscriptionController : MonoBehaviour {
     public void SetInscriptionView(InscriptionView _iv) { iv = _iv; }
     public float GetTimer() { return Mathf.Clamp(currentTimer, 0, inscriptionTimer); }
     public GameObject GetCastedInscription() { return castedInscription; }
+    public void DestroyCastedInscription() { if (castedInscription != null) Destroy(castedInscription); }
 
     private void SwitchOffController()
     {

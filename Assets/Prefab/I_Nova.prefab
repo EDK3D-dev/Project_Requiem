@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inscriptionName: Nova
-  activationMatrix: 00010100010000010100000100010100
+  activationMatrix: 00010101000100000001010000000101000000010001010100
   duration: 5
   radius: 3
   speedModifier: 0.5

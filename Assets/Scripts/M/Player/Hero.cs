@@ -15,7 +15,7 @@ public class Hero : MonoBehaviour {
 
     //invulnerability 
     [SerializeField]
-    float invulnerabilityFrameDuration = 0.5f;
+    float invulnerabilityFrameDuration = 1f;
     bool canBeHit = true;
     float invulnerabilityDuration = 0;
     float invulnerabilityTimer = 0;

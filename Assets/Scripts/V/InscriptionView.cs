@@ -19,7 +19,7 @@ public class InscriptionView : MonoBehaviour {
     [SerializeField]
     GameObject VIlabel;
 
-    private bool[] input = new bool[16];
+    private bool[] input = new bool[25];
 
     void Start()
     {

@@ -44,8 +44,9 @@ public abstract class Enemy : MonoBehaviour {
     protected abstract void OnDestroyBehaviour();
 
 
-    public void OnTriggerEnter2D(Collider2D _collider)
+    public virtual void OnTriggerStay2D(Collider2D _collider)
     {
-        //Debug.Log("collision : " + _collider.gameObject.name);
+        if(_collider.tag == "Player")
+            Destroy(gameObject);
     }
 }

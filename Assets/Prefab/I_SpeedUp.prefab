@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inscriptionName: Speed Up
-  activationMatrix: 01010101000101000001010001010101
+  activationMatrix: 01010101010001000100000001000000010001000101010101
   duration: 5
-  speedRatio: 2
+  speedModifier: 1.5
   scoreModifier: 2

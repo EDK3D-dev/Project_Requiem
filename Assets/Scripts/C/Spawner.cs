@@ -11,12 +11,14 @@ public class Spawner : MonoBehaviour {
     //skeletons properties
     [SerializeField]
     GameObject skeletonPrefab;
+    int skeletonBordersRandom = 4;
     float skeletonSpawnFrequency = 2f; //redefined in GameManager
     private bool skeletonSpawning = false;
 
     //archers properties
     [SerializeField]
     GameObject archerPrefab;
+    int archerBordersRandom = 2;
     float archerSpawnFrequency = 4f; //redefined in GameManager
     private bool archerSpawning = false;
 
@@ -133,6 +135,8 @@ public class Spawner : MonoBehaviour {
     {
         archerSpawning = true;
         yield return new WaitForSeconds(archerSpawnFrequency);
+
+
         foreach (Transform c in colliders)
         {
             EdgeCollider2D ec = c.gameObject.GetComponent<EdgeCollider2D>();

@@ -7,7 +7,7 @@ public abstract class Inscription : MonoBehaviour
     [SerializeField]
     string inscriptionName;
     [SerializeField]
-    bool[] activationMatrix = new bool[16];
+    bool[] activationMatrix = new bool[25];
 
     bool isInitialised = false;
 
@@ -43,6 +43,9 @@ public abstract class Inscription : MonoBehaviour
 
                 Behaviour();
             }
+        } else
+        {
+            Destroy(gameObject);
         }
     }
 

@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inscriptionName: Regenerate
-  activationMatrix: 01000001010101010000000000010100
+  activationMatrix: 01010001010100010001010000000100010001000000010000
   duration: 5
   heal: 1
   scoreModifier: 0.5

@@ -185,6 +185,7 @@ public class GameManager : MonoBehaviour {
         //reset player
         GOhero.transform.position = new Vector3(0, 0, 0);
         hero.ResetHero();
+        Icontroller.DestroyCastedInscription();
 
         //
         ContinueGame();

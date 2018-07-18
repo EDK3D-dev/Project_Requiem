@@ -22,7 +22,7 @@ public class Projectile : Enemy {
 
     public void SetDirection(Vector3 _direction) { direction = _direction; }
 
-    private new void OnTriggerEnter2D(Collider2D _collider)
+    public void OnTriggerEnter2D(Collider2D _collider)
     {
         if (_collider.tag == "Border" || _collider.tag == "Player")
             Destroy(gameObject);
